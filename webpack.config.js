@@ -81,6 +81,7 @@ module.exports = {
       '@selectors': path.resolve(__dirname, './src/services/selectors')
     }
   },
+  devtool: 'eval-cheap-source-map',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js'
@@ -89,6 +90,7 @@ module.exports = {
     static: path.join(__dirname, './dist'),
     compress: true,
     historyApiFallback: true,
-    port: 4000
+    port: 4000,
+    open: true
   }
 };

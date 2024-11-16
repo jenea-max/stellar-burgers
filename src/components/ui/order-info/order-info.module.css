@@ -1,5 +1,5 @@
 .wrap {
-  margin: 0 auto;
+  margin: auto;
   width: 640px;
 }
 .number {
@@ -55,6 +55,7 @@
   padding: 0;
   overflow-y: auto;
   max-height: 320px;
+  scrollbar-width: thin;
 }
 
 .list::-webkit-scrollbar {

@@ -11,8 +11,13 @@
 
   overflow-y: scroll;
   list-style-type: none;
+  scrollbar-width: thin;
   margin: 0;
   padding: 0;
+}
+
+.elementsNoChildren {
+  overflow: hidden;
 }
 
 .total {
