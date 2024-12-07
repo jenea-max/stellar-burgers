@@ -5,7 +5,7 @@ import { useAction } from '../../hooks/useAction';
 import { constructorActions } from '../../services/selector/slices/constructor-slice/constructor-slice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
-  ({ ingredient, index, totalItems }) => {
+  ({ ingredient, index, totalItems, ...rest }) => {
     const { reorderConstructor, removeFromConstructor } =
       useAction(constructorActions);
     const handleMoveDown = () => {
@@ -32,6 +32,7 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
         handleMoveUp={handleMoveUp}
         handleMoveDown={handleMoveDown}
         handleClose={handleClose}
+        {...rest}
       />
     );
   }
