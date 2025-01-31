@@ -26,12 +26,12 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
 
     return (
       <BurgerConstructorElementUI
-        ingredient={ingredient}
         index={index}
-        totalItems={totalItems}
+        ingredient={ingredient}
         handleMoveUp={handleMoveUp}
         handleMoveDown={handleMoveDown}
         handleClose={handleClose}
+        totalItems={totalItems}
         {...rest}
       />
     );

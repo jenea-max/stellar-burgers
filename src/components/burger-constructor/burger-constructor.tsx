@@ -16,8 +16,7 @@ import {
   getConstructorBun,
   getConstructorIngredients
 } from '../../services/selector/slices/constructor-slice/constructor-slice';
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
+
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const { resetOrderModal, postOrderThunk } = useAction(orderActions);
@@ -27,10 +26,10 @@ export const BurgerConstructor: FC = () => {
   const ingredients = useSelector(getConstructorIngredients);
   const bun = useSelector(getConstructorBun);
 
-  const orderData = [bun?._id || ''] // Добавляем булочку в начало
-    .concat(ingredients.map((i) => i._id)) // Добавляем ингредиенты
-    .concat([bun?._id || '']) // Добавляем булочку в конец
-    .filter((i) => i !== ''); // Убираем пустые строки
+  const orderData = [bun?._id || '']
+    .concat(ingredients.map((i) => i._id))
+    .concat([bun?._id || ''])
+    .filter((i) => i !== '');
 
   const constructorItems = {
     bun: bun,
@@ -67,10 +66,10 @@ export const BurgerConstructor: FC = () => {
 
   return (
     <BurgerConstructorUI
-      price={price}
-      orderRequest={orderRequest}
       constructorItems={constructorItems}
+      price={price}
       orderModalData={orderModalData}
+      orderRequest={orderRequest}
       onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
     />

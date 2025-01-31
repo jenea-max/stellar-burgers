@@ -3,40 +3,46 @@ import {
   ordersSlice,
   initialState as initialOrdersState
 } from './orders-slice';
-import { mockOrders } from '../../../../utils/mocks';
+import { mockOrder } from '../../../../utils/mocks';
 
 jest.mock('@api', () => ({
   getOrdersApi: jest.fn()
 }));
 
-describe('Orders Slice', () => {
-  it('should handle pending state correctly', () => {
+describe('Тестируем Orders Slice', () => {
+  it('Корректное отображение состояния ожидания', () => {
     const actualState = ordersSlice.reducer(initialOrdersState, {
       type: getOrdersThunk.pending.type
     });
+
+    // Ожидаем, что в состоянии появится флаг загрузки
     expect(actualState).toEqual({
       ...initialOrdersState,
       isLoading: true
     });
   });
 
-  it('should handle fulfilled state correctly', () => {
+  it('Корректное отображение состояния выполеннного заказа', () => {
     const actualState = ordersSlice.reducer(initialOrdersState, {
       type: getOrdersThunk.fulfilled.type,
-      payload: mockOrders.orders
+      payload: mockOrder.orders
     });
+
+    // Ожидаем, что в состоянии появятся полученные заказы
     expect(actualState).toEqual({
       ...initialOrdersState,
-      orders: mockOrders.orders
+      orders: mockOrder.orders
     });
   });
 
-  it('should handle rejected state correctly', () => {
+  it('Корректное отображение ошибки', () => {
     const mockError = new Error('Failed to fetch orders');
     const actualState = ordersSlice.reducer(initialOrdersState, {
       type: getOrdersThunk.rejected.type,
       error: mockError
     });
+
+    // Ожидаем, что в состояние запишется ошибка
     expect(actualState).toEqual({
       ...initialOrdersState,
       errors: mockError

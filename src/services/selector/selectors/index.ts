@@ -1,11 +1,11 @@
 import { RootState } from '../../../hooks/useSelector';
 import {
-  FEED_SLICE_NAME,
   ORDER_SLICE_NAME,
-  USER_ORDER_SLICE_NAME
+  USER_ORDER_SLICE_NAME,
+  FEED_SLICE_NAME
 } from '../../../utils/constants';
 
-export const orderInfoDataSelector = (number: string) => (state: RootState) => {
+export const orderDataSelector = (number: string) => (state: RootState) => {
   if (state[USER_ORDER_SLICE_NAME].orders.length) {
     const data = state[USER_ORDER_SLICE_NAME].orders.find(
       (item) => item.number === +number

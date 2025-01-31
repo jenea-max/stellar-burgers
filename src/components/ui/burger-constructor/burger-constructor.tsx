@@ -27,9 +27,10 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         <ConstructorElement
           type='top'
           isLocked
-          text={`${constructorItems.bun.name} (верх)`}
+          text={`${constructorItems.bun.name}`}
           price={constructorItems.bun.price}
           thumbnail={constructorItems.bun.image}
+          data-cy='bun-ingredients'
         />
       </div>
     ) : (
@@ -51,6 +52,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
               index={index}
               totalItems={constructorItems.ingredients.length}
               key={item.id}
+              data-cy='mains-ingredients'
             />
           )
         )
@@ -70,9 +72,10 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         <ConstructorElement
           type='bottom'
           isLocked
-          text={`${constructorItems.bun.name} (низ)`}
+          text={`${constructorItems.bun.name}`}
           price={constructorItems.bun.price}
           thumbnail={constructorItems.bun.image}
+          data-cy='bun-ingredients'
         />
       </div>
     ) : (
@@ -93,6 +96,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         size='large'
         children='Оформить заказ'
         onClick={onOrderClick}
+        data-cy='order-button'
       />
     </div>
 

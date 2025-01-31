@@ -12,6 +12,7 @@ import {
   updateUserThunk
 } from './user-thunk';
 
+// Мокаем API-запросы, чтобы изолировать тестируемую логику
 jest.mock('@api', () => ({
   registerUserApi: jest.fn(),
   loginUserApi: jest.fn(),
@@ -20,214 +21,222 @@ jest.mock('@api', () => ({
   logoutUserApi: jest.fn()
 }));
 
-describe('User Slice', () => {
-  describe('Action: authChecked', () => {
-    it('should change state authChecked', () => {
+describe('Тестируем User Slice', () => {
+  // Тестируем логику регистрации
+  describe('Регистрация', () => {
+    it('Изменение состояния регистрация', () => {
       const state = userSlice.reducer(
         initialUserState,
-        userActions.authChecked()
+        userActions.authChecked() // Эмулируем действие проверки авторизации
       );
 
       expect(state).toEqual({
         ...initialUserState,
-        isAuthChecked: true
+        isAuthChecked: true // Убедимся, что поле isAuthChecked стало true
       });
     });
   });
 
-  describe('Action: userLogout', () => {
-    it('should change state when logout ', () => {
+  // Тестируем логику входа в аккаунт
+  describe('Логин', () => {
+    it('Изменение состояние при входе в аккаунт', () => {
       const filledState = {
         ...initialUserState,
-        user: mockUser.user
+        user: mockUser.user // Имитация уже авторизованного пользователя
       };
 
       const state = userSlice.reducer(filledState, userActions.userLogout());
 
       expect(state).toEqual({
         ...filledState,
-        user: null,
-        isAuthChecked: true
+        user: null, // После выхода из аккаунта пользователь должен быть null
+        isAuthChecked: true // Устанавливаем isAuthChecked в true после выхода
       });
     });
   });
 
-  describe('registerUserThunk', () => {
-    it('should handle pending state correctly', () => {
+  // Тестируем поведение функции регистрации
+  describe('Функция для регистрации', () => {
+    it('Корректное отображение ожидания', () => {
       const actualState = userSlice.reducer(initialUserState, {
-        type: registerUserThunk.pending.type
+        type: registerUserThunk.pending.type // Подаем тип ожидания регистрации
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        request: true
+        request: true // Убедимся, что флаг запроса стал true
       });
     });
 
-    it('should handle fulfilled state correctly', () => {
+    it('Корректное отображение выполненного действия', () => {
       const actualState = userSlice.reducer(initialUserState, {
         type: registerUserThunk.fulfilled.type,
-        payload: mockUser.user
+        payload: mockUser.user // Имитация успешной регистрации
       });
 
       expect(actualState).toEqual({
         ...initialUserState,
-        user: mockUser.user,
-        isAuthenticated: true
+        user: mockUser.user, // Пользователь должен быть сохранен в состоянии
+        isAuthenticated: true // Убедимся, что пользователь авторизован
       });
     });
 
-    it('should handle rejected state correctly', () => {
-      const mockError = new Error('Failed to fetch register user');
+    it('Корректное отображение ошибки', () => {
+      const mockError = new Error('Ошибка регистрации пользователя');
       const actualState = userSlice.reducer(initialUserState, {
         type: registerUserThunk.rejected.type,
-        error: mockError
+        error: mockError // Эмулируем ошибку
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        error: mockError
+        error: mockError // Ошибка должна быть сохранена в состоянии
       });
     });
   });
 
-  describe('loginUserThunk', () => {
-    it('should handle pending state correctly', () => {
+  // Тестируем вход в аккаунт
+  describe('Функция для входа в аакаунт', () => {
+    it('Корректное отображение ожидания', () => {
       const actualState = userSlice.reducer(initialUserState, {
-        type: loginUserThunk.pending.type
+        type: loginUserThunk.pending.type // Тип запроса входа
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        request: true
+        request: true // Включаем флаг ожидания
       });
     });
 
-    it('should handle fulfilled state correctly', () => {
+    it('Корректное отображение выполненного действия', () => {
       const actualState = userSlice.reducer(initialUserState, {
         type: loginUserThunk.fulfilled.type,
-        payload: mockUser
+        payload: mockUser // Имитация успешного входа
       });
 
       expect(actualState).toEqual({
         ...initialUserState,
-        user: mockUser,
-        isAuthenticated: true
+        user: mockUser, // Сохраняем данные пользователя
+        isAuthenticated: true // Обновляем статус авторизации
       });
     });
 
-    it('should handle rejected state correctly', () => {
-      const mockError = new Error('Failed to fetch login user');
+    it('Корректное отображение ошиибки', () => {
+      const mockError = new Error('Ошибка при входе в аккаунт пользователя');
       const actualState = userSlice.reducer(initialUserState, {
         type: loginUserThunk.rejected.type,
-        error: mockError
+        error: mockError // Эмулируем ошибку при входе
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        error: mockError
+        error: mockError // Сохраняем ошибку в состоянии
       });
     });
   });
 
-  describe('checkUserAuth', () => {
-    it('should handle pending state correctly', () => {
+  // Тестируем проверку авторизации
+  describe('Функция проверки авторизации', () => {
+    it('Корректное отображение ожидания', () => {
       const actualState = userSlice.reducer(initialUserState, {
-        type: checkUserAuth.pending.type
+        type: checkUserAuth.pending.type // Тип запроса для проверки
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        request: true
+        request: true // Тип запроса для проверки
       });
     });
 
-    it('should handle fulfilled state correctly', () => {
+    it('Корректное отображение выполненного действия', () => {
       const actualState = userSlice.reducer(initialUserState, {
         type: checkUserAuth.fulfilled.type,
-        payload: mockUser
+        payload: mockUser // Имитация успешной авторизации
       });
 
       expect(actualState).toEqual({
         ...initialUserState,
-        user: mockUser.user,
-        isAuthenticated: true,
-        isAuthChecked: true
+        user: mockUser.user, // Сохраняем данные пользователя
+        isAuthenticated: true, // Обновляем статус авторизации
+        isAuthChecked: true // Устанавливаем флаг проверки
       });
     });
 
-    it('should handle rejected state correctly', () => {
-      const mockError = new Error('Failed to fetch check user');
+    it('Корректное отображение ошибки', () => {
+      const mockError = new Error('Ошибка при авторизации пользователя');
       const actualState = userSlice.reducer(initialUserState, {
         type: checkUserAuth.rejected.type,
-        error: mockError
+        error: mockError // Эмулируем ошибку при проверке
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        isAuthChecked: true,
-        error: mockError
+        isAuthChecked: true, // Устанавливаем флаг проверки
+        error: mockError // Сохраняем ошибку
       });
     });
   });
 
-  describe('updateUserThunk', () => {
-    it('should handle pending state correctly', () => {
+  // Тестируем обновление данных пользователя
+  describe('Функция обновления информации о пользователе', () => {
+    it('Корректное отображение состояния ожидания', () => {
       const actualState = userSlice.reducer(initialUserState, {
-        type: updateUserThunk.pending.type
+        type: updateUserThunk.pending.type // Тип запроса на обновление
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        request: true
+        request: true // Устанавливаем флаг ожидания
       });
     });
 
-    it('should handle fulfilled state correctly', () => {
+    it('Корректное отображение выполненного действия', () => {
       const actualState = userSlice.reducer(initialUserState, {
         type: updateUserThunk.fulfilled.type,
-        payload: mockUser
+        payload: mockUser // Имитация успешного обновления
       });
 
       expect(actualState).toEqual({
         ...initialUserState,
-        user: mockUser.user
+        user: mockUser.user // Имитация успешного обновления
       });
     });
 
-    it('should handle rejected state correctly', () => {
-      const mockError = new Error('Failed to fetch update user');
+    it('Корректное отображение ошибки', () => {
+      const mockError = new Error('Ошибка обновления данных');
       const actualState = userSlice.reducer(initialUserState, {
         type: updateUserThunk.rejected.type,
-        error: mockError
+        error: mockError // Эмулируем ошибку
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        error: mockError
+        error: mockError // Сохраняем ошибку
       });
     });
   });
-  describe('logoutUserThunk', () => {
-    it('should handle pending state correctly', () => {
+
+  // Тестируем логику выхода из аккаунта
+  describe('Функция выхода из аккаунта', () => {
+    it('Корректное отображение ожидания', () => {
       const actualState = userSlice.reducer(initialUserState, {
-        type: logoutUserThunk.pending.type
+        type: logoutUserThunk.pending.type // Тип запроса на выход
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        request: true
+        request: true // Включаем флаг запроса
       });
     });
 
-    it('should handle fulfilled state correctly', () => {
+    it('Корректное отображение выполненного действия', () => {
       const actualState = userSlice.reducer(initialUserState, {
-        type: logoutUserThunk.fulfilled.type
+        type: logoutUserThunk.fulfilled.type // Тип запроса на успешный выход
       });
 
-      expect(actualState).toEqual(initialUserState);
+      expect(actualState).toEqual(initialUserState); // Состояние возвращается к начальному
     });
 
-    it('should handle rejected state correctly', () => {
-      const mockError = new Error('Failed to fetch logout user');
+    it('Корректное отображение ошибки', () => {
+      const mockError = new Error('Ошибка при выходе из аккаунта');
       const actualState = userSlice.reducer(initialUserState, {
         type: logoutUserThunk.rejected.type,
-        error: mockError
+        error: mockError // Эмулируем ошибку при выходе
       });
       expect(actualState).toEqual({
         ...initialUserState,
-        error: mockError
+        error: mockError // Ошибка должна быть сохранена в состоянии
       });
     });
   });

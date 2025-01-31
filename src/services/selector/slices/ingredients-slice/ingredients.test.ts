@@ -9,8 +9,9 @@ jest.mock('@api', () => ({
   getIngredientsApi: jest.fn()
 }));
 
-describe('Ingredients Slice', () => {
-  it('should handle pending state correctly', () => {
+describe('Тестируем Ingredients Slice', () => {
+  // Проверяем, что при ожидании загрузки isLoading становится true
+  it('Корректная обработка состояния ожидания', () => {
     const actualState = ingredientsSlice.reducer(initialIngredientsState, {
       type: getIngredientsThunk.pending.type
     });
@@ -20,7 +21,8 @@ describe('Ingredients Slice', () => {
     });
   });
 
-  it('should handle fulfilled state correctly', () => {
+  // Проверяем, что успешное выполнение запроса обновляет список ингредиентов
+  it('Корректная обработка состояния выполненого заказа', () => {
     const actualState = ingredientsSlice.reducer(initialIngredientsState, {
       type: getIngredientsThunk.fulfilled.type,
       payload: mockIngredients
@@ -30,9 +32,9 @@ describe('Ingredients Slice', () => {
       ingredients: mockIngredients
     });
   });
-
-  it('should handle rejected state correctly', () => {
-    const mockError = new Error('Failed to fetch ingredients');
+  // Проверяем, что при ошибке загрузки состояние содержит сообщение об ошибке
+  it('Корректная обработка ошибки', () => {
+    const mockError = new Error('Ошибка загрузки ингредиентов');
     const actualState = ingredientsSlice.reducer(initialIngredientsState, {
       type: getIngredientsThunk.rejected.type,
       error: mockError
