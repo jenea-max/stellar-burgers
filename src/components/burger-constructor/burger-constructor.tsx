@@ -40,14 +40,20 @@ export const BurgerConstructor: FC = () => {
 
   const orderModalData = useSelector(getOrderModalData);
 
-  const onOrderClick = () => {
+  const onOrderClick = async () => {
     if (!user) {
       navigate('login');
       return;
     }
     if (!constructorItems.bun || orderRequest) return;
-    postOrderThunk(orderData);
-    resetConstructor();
+
+    // Отправляем запрос на сервер
+    try {
+      await postOrderThunk(orderData);
+      resetConstructor(); // Очистка конструктора после успешного ответа
+    } catch (error) {
+      console.error('Ошибка при оформлении заказа:', error);
+    }
   };
   const closeOrderModal = () => {
     resetOrderModal();

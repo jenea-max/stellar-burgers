@@ -40,12 +40,20 @@ describe('Тестирование конструктора бургера и п
 
   describe('Добавление ингредиентов в конструктор', () => {
     it('Добавление булки в конструктор', () => {
+      // Проверяем что нет ингредиентов доме
+      cy.get('[data-cy=constructor-bun-1]').should('not.exist');
+      cy.get('[data-cy=constructor-bun-2]').should('not.exist');
+      // Проверяем как они добавляются
       cy.get('[data-cy=bun-ingredients]').contains('Добавить').click();
       cy.get('[data-cy=constructor-bun-1]').contains('Булка 1').should('exist');
       cy.get('[data-cy=constructor-bun-2]').contains('Булка 1').should('exist');
     });
 
     it('Добавление начинки и соуса в конструктор', () => {
+      // Проверяем что нет ингредиентов доме
+      cy.get('[data-cy=mains-ingredients]').should('not.exist');
+      cy.get('[data-cy=sauces-ingredients]').should('not.exist');
+      // Проверяем как они добавляются
       cy.get('[data-cy=mains-ingredients]').contains('Добавить').click();
       cy.get('[data-cy=sauces-ingredients]').contains('Добавить').click();
       cy.get('[data-cy=constructor-ingredients]').should(
@@ -58,6 +66,8 @@ describe('Тестирование конструктора бургера и п
 
   describe('Модальное окно ингредиента', () => {
     it('Закрытие модального окна кнопкой закрытия', () => {
+       // Проверяем, что модальное окно не открыто
+      cy.get('[data-cy=modal]').should('not.exist');
       // Находим первый ингредиент и проверяем что модальное окно открыто
       cy.get('[data-cy=mains-ingredients] li').first().click();
       cy.get('[data-cy=modal]')

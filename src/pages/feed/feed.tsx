@@ -1,7 +1,7 @@
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useCallback } from 'react';
 import { useSelector } from '../../hooks/useSelector';
 import {
   feedActions,
@@ -18,10 +18,10 @@ export const Feed: FC = () => {
     getFeedThunk();
   }, []);
 
-  const handleGetFeeds = () => {
-    location.assign('/feed');
+  const handleGetFeeds = useCallback(() => {
+    // Обновляем только ленту заказов, без перезагрузки страницы
     getFeedThunk();
-  };
+  }, [getFeedThunk]);
 
   if (!orders.length) {
     return <Preloader />;
