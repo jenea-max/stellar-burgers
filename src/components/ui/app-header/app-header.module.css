@@ -44,3 +44,7 @@
 .logo:active {
   transform: scale(0.98);
 }
+
+.link:hover {
+  opacity: 0.8;
+}

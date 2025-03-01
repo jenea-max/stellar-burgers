@@ -1,0 +1,91 @@
+{
+  "success": true,
+  "name": "Твой космо-бургер",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "643d69a5c3f7b9001cfa093d",
+        "name": "Флюоресцентная булка R2-D3",
+        "type": "bun",
+        "proteins": 44,
+        "fat": 26,
+        "calories": 643,
+        "carbohydrates": 85,
+        "price": 988,
+        "image": "https://code.s3.yandex.net/react/code/bun-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-01-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa0941",
+        "name": "Биокотлета из марсианской Магнолии",
+        "type": "main",
+        "proteins": 420,
+        "fat": 142,
+        "calories": 4242,
+        "carbohydrates": 242,
+        "price": 424,
+        "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa0946",
+        "name": "Хрустящие минеральные кольца",
+        "type": "main",
+        "proteins": 808,
+        "fat": 689,
+        "calories": 986,
+        "carbohydrates": 609,
+        "price": 300,
+        "image": "https://code.s3.yandex.net/react/code/mineral_rings.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa0942",
+        "name": "Соус Spicy-X",
+        "type": "sauce",
+        "proteins": 30,
+        "fat": 20,
+        "calories": 30,
+        "carbohydrates": 40,
+        "price": 90,
+        "image": "https://code.s3.yandex.net/react/code/sauce-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa093d",
+        "name": "Флюоресцентная булка R2-D3",
+        "type": "bun",
+        "proteins": 44,
+        "fat": 26,
+        "calories": 643,
+        "carbohydrates": 85,
+        "price": 988,
+        "image": "https://code.s3.yandex.net/react/code/bun-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-01-large.png",
+        "__v": 0
+      }
+    ],
+    "_id": "63e2dfd6119d45001b5066e0",
+    "owner": {
+      "name": "Евгения",
+      "email": "egradeskova@edu.hse.ru",
+      "createdAt": "2025-01-07T14:22:00.000Z",
+      "updatedAt": "2025-01-07T14:25:00.000Z"
+    },
+    "status": "done",
+    "name": "Твой космо-бургер",
+    "number": 52816,
+    "price": 2790,
+    "createdAt": "2025-01-07T14:22:00.000Z",
+    "updatedAt": "2025-01-07T14:25:00.000Z"
+  }
+}

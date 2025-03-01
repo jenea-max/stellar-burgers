@@ -16,8 +16,7 @@ import {
   getConstructorBun,
   getConstructorIngredients
 } from '../../services/selector/slices/constructor-slice/constructor-slice';
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
+
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const { resetOrderModal, postOrderThunk } = useAction(orderActions);
@@ -27,9 +26,9 @@ export const BurgerConstructor: FC = () => {
   const ingredients = useSelector(getConstructorIngredients);
   const bun = useSelector(getConstructorBun);
 
-  const orderData = ingredients
-    .map((i) => i._id)
-    .concat([bun?._id || ''], [bun?._id || ''])
+  const orderData = [bun?._id || '']
+    .concat(ingredients.map((i) => i._id))
+    .concat([bun?._id || ''])
     .filter((i) => i !== '');
 
   const constructorItems = {
@@ -41,14 +40,20 @@ export const BurgerConstructor: FC = () => {
 
   const orderModalData = useSelector(getOrderModalData);
 
-  const onOrderClick = () => {
+  const onOrderClick = async () => {
     if (!user) {
       navigate('login');
       return;
     }
     if (!constructorItems.bun || orderRequest) return;
-    postOrderThunk(orderData);
-    resetConstructor();
+
+    // Отправляем запрос на сервер
+    try {
+      await postOrderThunk(orderData);
+      resetConstructor(); // Очистка конструктора после успешного ответа
+    } catch (error) {
+      console.error('Ошибка при оформлении заказа:', error);
+    }
   };
   const closeOrderModal = () => {
     resetOrderModal();
@@ -67,10 +72,10 @@ export const BurgerConstructor: FC = () => {
 
   return (
     <BurgerConstructorUI
-      price={price}
-      orderRequest={orderRequest}
       constructorItems={constructorItems}
+      price={price}
       orderModalData={orderModalData}
+      orderRequest={orderRequest}
       onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
     />

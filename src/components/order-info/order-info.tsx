@@ -6,13 +6,13 @@ import { getIngredients } from '../../services/selector/slices/ingredients-slice
 import { useSelector } from '../../hooks/useSelector';
 import { useAction } from '../../hooks/useAction';
 import { orderActions } from '../../services/selector/slices/order-slice/order-slice';
-import { orderInfoDataSelector } from '../../services/selector/selectors/index';
+import { orderDataSelector } from '../../services/selector/selectors/index';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
   const { getOrderByNumberThunk } = useAction(orderActions);
   const ingredients: TIngredient[] = useSelector(getIngredients);
-  const orderData = useSelector(orderInfoDataSelector(number || ''));
+  const orderData = useSelector(orderDataSelector(number || ''));
 
   useEffect(() => {
     if (!orderData) {
@@ -20,7 +20,7 @@ export const OrderInfo: FC = () => {
     }
   }, [orderData, number]);
 
-  /* Готовим данные для отображения */
+  // Готовим данные для отображения
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
